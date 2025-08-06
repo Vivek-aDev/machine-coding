@@ -4,18 +4,7 @@ const BookItem = ({ book, onToggleRead, onDelete }) => {
   const { id, title, author, isRead } = book;
   return (
     <>
-      <li
-        key={id}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "0.5rem",
-          border: "1px solid #ccc",
-          padding: "0.5rem",
-          borderRadius: "5px",
-        }}
-      >
+      <li key={id} className="book-item">
         <div>
           <strong>{title}</strong> by {author} -{" "}
           {isRead ? "✅ Read" : "❌ Unread"}

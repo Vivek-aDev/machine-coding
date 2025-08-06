@@ -3,14 +3,7 @@ import React from "react";
 const FilterDropdown = ({ filter, setFilter }) => {
   return (
     <>
-      <section
-        style={{
-          marginTop: "1rem",
-          display: "flex",
-          gap: "1rem",
-          justifyContent: "center",
-        }}
-      >
+      <section className="filter">
         <label htmlFor="filter">Filter:</label>
         <select
           id="filter"

@@ -6,7 +6,7 @@ const BookList = ({ books, onToggleRead, onDelete }) => {
         return <p>No Books to Display...</p>
     }
   return (
-    <>
+    <section className="book-list">
       <ul>
         {books.map((book) => (
           <BookItem
@@ -17,7 +17,7 @@ const BookList = ({ books, onToggleRead, onDelete }) => {
           />
         ))}
       </ul>
-    </>
+    </section>
   );
 };
 
