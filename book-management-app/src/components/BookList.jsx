@@ -1,9 +1,21 @@
-import React from 'react'
+import React from "react";
+import BookItem from "./BookItem";
 
-const BookList = () => {
+const BookList = ({ books, onToggleRead, onDelete }) => {
   return (
-    <div>BookList</div>
-  )
-}
+    <>
+      <ul>
+        {books.map((book) => (
+          <BookItem
+            key={book.id}
+            book={book}
+            onToggleRead={onToggleRead}
+            onDelete={onDelete}
+          />
+        ))}
+      </ul>
+    </>
+  );
+};
 
-export default BookList
+export default BookList;

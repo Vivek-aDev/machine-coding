@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import AddBookForm from "./components/AddBookForm";
+import BookList from "./components/BookList";
 
 function App() {
   const [books, setBooks] = useState(() => {
@@ -78,7 +79,6 @@ function App() {
           justifyContent: "center",
         }}
       >
-        {/* filter buttons goes here */}
         <label htmlFor="filter">Filter:</label>
         <select
           id="filter"
@@ -94,37 +94,11 @@ function App() {
       {/* Book List */}
       <section style={{ marginTop: "1rem" }}>
         <h2>Book List</h2>
-        {filteredbooks.length === 0 ? (
-          <p>No Books added yet...</p>
-        ) : (
-          <ul>
-            {filteredbooks.map(({ id, title, author, isRead }) => (
-              <li
-                key={id}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "0.5rem",
-                  border: "1px solid #ccc",
-                  padding: "0.5rem",
-                  borderRadius: "5px",
-                }}
-              >
-                <div>
-                  <strong>{title}</strong> by {author} -{" "}
-                  {isRead ? "✅ Read" : "❌ Unread"}
-                </div>
-                <div style={{ display: "flex", gap: "6px" }}>
-                  <button onClick={() => handleToggleRead(id)}>
-                    {!isRead ? "Read 👍🏻" : "unread 👎🏻"}
-                  </button>
-                  <button onClick={() => handleDeleteBook(id)}>Delete</button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+        <BookList
+          books={filteredbooks}
+          onToggleRead={handleToggleRead}
+          onDelete={handleDeleteBook}
+        />
       </section>
     </div>
   );
