@@ -53,14 +53,7 @@ function App() {
   });
 
   return (
-    <div
-      style={{
-        border: "2px solid lightblue",
-        maxWidth: "600px",
-        margin: "2rem auto",
-        padding: "1rem",
-      }}
-    >
+    <div className="container">
       <h1>📚 Book Management App</h1>
 
       <AddBookForm
