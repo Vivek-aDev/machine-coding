@@ -92,9 +92,16 @@ function App() {
         }}
       >
         {/* filter buttons goes here */}
-        <button onClick={() => setFilter("all")}>all</button>
-        <button onClick={() => setFilter("read")}>read</button>
-        <button onClick={() => setFilter("unread")}>unread</button>
+        <label htmlFor="filter">Filter:</label>
+        <select
+          id="filter"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value="all">all</option>
+          <option value="read">read</option>
+          <option value="unread">unread</option>
+        </select>
       </section>
 
       {/* Book List */}
