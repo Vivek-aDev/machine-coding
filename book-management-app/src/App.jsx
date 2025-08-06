@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import AddBookForm from "./components/AddBookForm";
 import BookList from "./components/BookList";
+import FilterDropdown from "./components/FilterDropdown";
 
 function App() {
   const [books, setBooks] = useState(() => {
@@ -70,26 +71,8 @@ function App() {
         onAdd={handleAddBook}
       />
 
-      {/* Filter Buttons */}
-      <section
-        style={{
-          marginTop: "1rem",
-          display: "flex",
-          gap: "1rem",
-          justifyContent: "center",
-        }}
-      >
-        <label htmlFor="filter">Filter:</label>
-        <select
-          id="filter"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        >
-          <option value="all">all</option>
-          <option value="read">read</option>
-          <option value="unread">unread</option>
-        </select>
-      </section>
+      {/* Filter Dropdown */}
+      <FilterDropdown filter={filter} setFilter={setFilter} />
 
       {/* Book List */}
       <section style={{ marginTop: "1rem" }}>
