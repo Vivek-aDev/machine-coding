@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import AddBookForm from "./components/AddBookForm";
 
 function App() {
   const [books, setBooks] = useState(() => {
@@ -60,27 +61,13 @@ function App() {
     >
       <h1>📚 Book Management App</h1>
 
-      {/* Add book form */}
-      <section>
-        <h2>Add a new Book</h2>
-        <input
-          type="text"
-          className="input-field"
-          placeholder="Enter Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          className="input-field"
-          placeholder="Enter Author"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-        />
-        <button className="submit-button" onClick={handleAddBook}>
-          Submit
-        </button>
-      </section>
+      <AddBookForm
+        title={title}
+        author={author}
+        setTitle={setTitle}
+        setAuthor={setAuthor}
+        onAdd={handleAddBook}
+      />
 
       {/* Filter Buttons */}
       <section
