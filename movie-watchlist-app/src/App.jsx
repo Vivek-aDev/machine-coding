@@ -11,6 +11,11 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const savedWatchlist = JSON.parse(localStorage.getItem("watchlist"));
+    if (savedWatchlist) {
+      setWatchlist(savedWatchlist);
+    }
+
     async function getMovies() {
       const data = await fetchNowPlayingMovies();
       setMovies(data);
@@ -20,11 +25,14 @@ function App() {
   }, []);
 
   const toggleWatchlist = (movieId) => {
-    setWatchlist((prevWatchlist) =>
-      prevWatchlist.includes(movieId)
+    setWatchlist((prevWatchlist) => {
+      const updated = prevWatchlist.includes(movieId)
         ? prevWatchlist.filter((id) => id !== movieId)
-        : [...prevWatchlist, movieId]
-    );
+        : [...prevWatchlist, movieId];
+
+      localStorage.setItem("watchlist",JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const filteredMovies =
