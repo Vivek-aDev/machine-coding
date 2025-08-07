@@ -32,7 +32,7 @@ const MovieModal = ({ movie, onClose }) => {
         {trailerKey ? (
           <div className="video-container">
             <iframe
-              src={`https://www.youtube.com/embed/${trailerKey}`}
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1`}
               title="Trailer"
               allowFullScreen
             />
