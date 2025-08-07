@@ -1,16 +1,22 @@
 import React from "react";
 import MovieCard from "./MovieCard";
 
-const MovieList = ({ movies, watchlist, toggleWatchlist }) => {
+const MovieList = ({
+  movies,
+  watchlist,
+  toggleWatchlist,
+  onSelectedMovie,
+}) => {
   return (
     <ul className="movie-list">
       {movies.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          movie={movie}
-          isInWatchlist={watchlist.includes(movie.id)}
-          toggleWatchlist={toggleWatchlist}
-        />
+        <div key={movie.id} onClick={() => onSelectedMovie(movie)}>
+          <MovieCard
+            movie={movie}
+            isInWatchlist={watchlist.includes(movie.id)}
+            toggleWatchlist={toggleWatchlist}
+          />
+        </div>
       ))}
     </ul>
   );

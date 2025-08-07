@@ -4,11 +4,13 @@ import MovieList from "./components/MovieList";
 import FilterDropdown from "./components/FilterDropdown";
 import SearchBar from "./components/SearchBar";
 import { useNowPlayingMovies } from "./hooks/useNowPlayingMovies";
+import MovieModal from "./components/modal/MovieModal";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [watchlist, setWatchlist] = useState([]);
   const [filter, setFilter] = useState("all");
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   const { movies, loading } = useNowPlayingMovies();
 
@@ -42,7 +44,14 @@ function App() {
         movies={filteredMovies}
         watchlist={watchlist}
         toggleWatchlist={toggleWatchlist}
+        onSelectedMovie={setSelectedMovie}
       />
+      {selectedMovie && (
+        <MovieModal
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
+        />
+      )}
     </div>
   );
 }
