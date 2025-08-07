@@ -1,30 +1,16 @@
-import { useState, useEffect } from "react";
-import { fetchNowPlayingMovies } from "./api/tmdb";
+import { useState } from "react";
 import "./App.css";
 import MovieList from "./components/MovieList";
 import FilterDropdown from "./components/FilterDropdown";
 import SearchBar from "./components/SearchBar";
+import { useNowPlayingMovies } from "./hooks/useNowPlayingMovies";
 
 function App() {
-  const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [watchlist, setWatchlist] = useState([]);
   const [filter, setFilter] = useState("all");
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const savedWatchlist = JSON.parse(localStorage.getItem("watchlist"));
-    if (savedWatchlist) {
-      setWatchlist(savedWatchlist);
-    }
-
-    async function getMovies() {
-      const data = await fetchNowPlayingMovies();
-      setMovies(data);
-      setLoading(false);
-    }
-    getMovies();
-  }, []);
+  const { movies, loading } = useNowPlayingMovies();
 
   const toggleWatchlist = (movieId) => {
     setWatchlist((prevWatchlist) => {
