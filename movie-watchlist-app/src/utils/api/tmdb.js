@@ -1,15 +1,9 @@
-const BASE_URL = "https://api.themoviedb.org/3";
-const TOKEN = import.meta.env.VITE_TMDB_BEARER_TOKEN;
-
-const headers = {
-  accept: "application/json",
-  Authorization: TOKEN,
-};
+import { BASE_URL, headers } from "../constants";
 
 export async function fetchNowPlayingMovies() {
   try {
     const res = await fetch(
-      `${BASE_URL}/movie/now_playing?language=en-US&page=1`,
+      `${BASE_URL}/now_playing?language=en-US&page=1`,
       {
         method: "GET",
         headers,
