@@ -44,10 +44,28 @@ h1 {
 .movie-item h3 {
   font-size: 0.9rem;
   margin: 0.75rem 0.25rem 0.2rem;
+  white-space: nowrap; /*Prevent Wrapping*/
+  overflow: hidden; /*Hide Overflow*/
+  text-overflow: ellipsis; /*Show ellipsis*/
 }
 
 .movie-item p {
   font-size: 0.8rem;
   margin: 0.75rem 0.25rem 0.2rem;
   color: #555;
+}
+
+.watchlist-btn {
+  background-color: #e2bf56;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.watchlist-btn:hover {
+  background-color: #ffd700;
 }

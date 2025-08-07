@@ -5,6 +5,7 @@ import MovieList from "./components/MovieList";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [watchlist, setWatchlist] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,12 +17,24 @@ function App() {
     getMovies();
   }, []);
 
+  const toggleWatchlist = (movieId) => {
+    setWatchlist((prevWatchlist) =>
+      prevWatchlist.includes(movieId)
+        ? prevWatchlist.filter((id) => id !== movieId)
+        : [...prevWatchlist, movieId]
+    );
+  };
+
   if (loading) return <p>Loading movies...</p>;
 
   return (
     <div className="app">
       <h1>Now Playing 🎬</h1>
-      <MovieList movies={movies} />
+      <MovieList
+        movies={movies}
+        watchlist={watchlist}
+        toggleWatchlist={toggleWatchlist}
+      />
     </div>
   );
 }

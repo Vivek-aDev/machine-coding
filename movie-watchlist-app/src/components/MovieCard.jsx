@@ -1,7 +1,8 @@
 import React from "react";
+import WatchlistButton from "./WatchlistButton";
 
-const MovieCard = ({movie}) => {
-    const { title, poster_path, vote_average } = movie
+const MovieCard = ({ movie, isInWatchlist, toggleWatchlist }) => {
+  const { id, title, poster_path, vote_average } = movie;
   return (
     <li className="movie-item">
       <img
@@ -12,6 +13,10 @@ const MovieCard = ({movie}) => {
       <div>
         <h3>{title}</h3>
         <p>Rating: {vote_average}</p>
+        <WatchlistButton
+          isInWatchlist={isInWatchlist}
+          toggleWatchlist={() => toggleWatchlist(id)}
+        />
       </div>
     </li>
   );
