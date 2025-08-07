@@ -46,11 +46,12 @@ function App() {
         toggleWatchlist={toggleWatchlist}
         onSelectedMovie={setSelectedMovie}
       />
-      {
-        selectedMovie && (
-          <MovieModal movie={selectedMovie} onClose={()=>setSelectedMovie(null)} />
-        )
-      }
+      {selectedMovie && (
+        <MovieModal
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
+        />
+      )}
     </div>
   );
 }
