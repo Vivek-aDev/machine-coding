@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import MovieList from "./components/MovieList";
 import FilterDropdown from "./components/FilterDropdown";
@@ -11,7 +11,14 @@ function App() {
   const [watchlist, setWatchlist] = useState([]);
   const [filter, setFilter] = useState("all");
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(() => {
+    const savedPage = localStorage.getItem("currentPage");
+    return savedPage ? parseInt(savedPage, 10) : 1;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("currentPage", page);
+  }, [page]);
 
   const { movies, totalPages, loading } = useNowPlayingMovies(page);
 
