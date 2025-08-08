@@ -1,12 +1,25 @@
 import { useState, useEffect, useRef } from "react";
 import { fetchNowPlayingMovies } from "../utils/api/tmdb";
 
+const CACHE_KEY = "movie_page_cache";
+
 export function useNowPlayingMovies(page = 1) {
   const [movies, setMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const cacheRef = useRef({});
+
+  useEffect(() => {
+    const localCache = localStorage.getItem(CACHE_KEY);
+    if (localCache) {
+      try {
+        cacheRef.current = JSON.parse(localCache);
+      } catch {
+        cacheRef.current = {};
+      }
+    }
+  }, []);
 
   useEffect(() => {
     async function loadMovies() {
@@ -21,6 +34,9 @@ export function useNowPlayingMovies(page = 1) {
 
       setMovies(results);
       cacheRef.current[page] = results;
+
+      localStorage.setItem(CACHE_KEY, JSON.stringify(cacheRef.current));
+
       setTotalPages(total_pages);
 
       setLoading(false);
