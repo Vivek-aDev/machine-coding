@@ -6,4 +6,6 @@ const headers = {
   Authorization: TOKEN,
 };
 
-export { BASE_URL, TOKEN, headers };
+const IMG_BASE = "https://image.tmdb.org/t/p/w200";
+
+export { BASE_URL, TOKEN, headers, IMG_BASE };
