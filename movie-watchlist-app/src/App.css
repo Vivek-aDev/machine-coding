@@ -55,7 +55,7 @@ h1 {
   color: #555;
 }
 
-.search-bar{
+.search-bar {
   margin-bottom: 1rem;
   padding: 0.5rem;
   font-size: 1rem;
@@ -82,7 +82,7 @@ h1 {
   background-color: #ffd700;
 }
 
-.filter-dropdown{
+.filter-dropdown {
   margin-bottom: 1rem;
   padding: 0.5rem;
   font-size: 1rem;
@@ -90,6 +90,33 @@ h1 {
   border: 1px solid #ccc;
   cursor: pointer;
 }
-.filter-dropdown:hover{
+.filter-dropdown:hover {
   background-color: beige;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #ccc;
+  color: #111;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.pagination button:hover {
+  background-color: #444;
+  color: white;
 }

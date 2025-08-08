@@ -11,8 +11,9 @@ function App() {
   const [watchlist, setWatchlist] = useState([]);
   const [filter, setFilter] = useState("all");
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [page, setPage] = useState(1);
 
-  const { movies, loading } = useNowPlayingMovies();
+  const { movies, totalPages, loading } = useNowPlayingMovies(page);
 
   const toggleWatchlist = (movieId) => {
     setWatchlist((prevWatchlist) => {
@@ -40,6 +41,25 @@ function App() {
       <h1>Now Playing 🎬</h1>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <FilterDropdown filter={filter} setFilter={setFilter} />
+
+      <div className="pagination">
+        <button
+          onClick={() => setPage((p) => Math.max(p - 1, 1))}
+          disabled={page === 1}
+        >
+          Prev
+        </button>
+        <span>
+          Page <strong>{page}</strong>
+        </span>
+        <button
+          onClick={() => setPage((p) => p + 1)}
+          disabled={page === totalPages}
+        >
+          Next
+        </button>
+      </div>
+
       <MovieList
         movies={filteredMovies}
         watchlist={watchlist}
