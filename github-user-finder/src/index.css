@@ -26,7 +26,7 @@ body {
   outline: none;
 }
 
-.search-bar button{
+.search-bar button {
   padding: 0.5rem 1.4rem;
   font-size: 1.2rem;
   background-color: #2b2e33;
@@ -36,6 +36,60 @@ body {
   border-radius: 0 20px 20px 0;
 }
 
-.search-bar button:hover{
+.search-bar button:hover {
   background-color: #000000;
+}
+
+/* Fetch and display GitHub profile details */
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 300px;
+  margin: 2rem auto auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.card h2 {
+  background: #121fcf;
+  background: linear-gradient(to right, #121fcf 0%, #cf1512 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card img {
+  width: 100px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+.card img:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0;
+}
+
+a {
+  text-decoration: none;
+  color: #24292e;
+  font-weight: bold;
+  cursor: pointer;
+  background: #ccc;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+}
+
+a:hover {
+  background-color: rgb(8, 8, 8);
+  color: white;
 }
