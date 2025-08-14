@@ -1,0 +1,25 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f1f1f1;
+  margin: 0;
+  padding: 2rem;
+}
+
+.board {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  min-height: 80vh;
+}
+
+.column {
+  background: white;
+  flex: 1;
+  padding: 1rem;
+  border-radius: 18px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.task-list {
+  margin-top: 1rem;
+}
