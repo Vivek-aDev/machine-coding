@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Column from "../components/Column";
 
 const Board = () => {
+  const [tasks, setTasks] = useState({
+    "To Do": [],
+    "In Progress": [],
+    Done: [],
+  });
+
+  const handleAddTask = (column, task) => {
+    setTasks((prev) => ({
+      ...prev,
+      [column]: [...prev[column], task],
+    }));
+  };
   return (
     <div className="board">
-      <Column title="To-Do" />
-      <Column title="In Progress" />
-      <Column title="Done" />
+      {Object.keys(tasks).map((col) => (
+        <Column
+          key={col}
+          title={col}
+          tasks={tasks[col]}
+          onAddTask={handleAddTask}
+        />
+      ))}
     </div>
   );
 };
