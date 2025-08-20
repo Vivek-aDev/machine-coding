@@ -1,33 +1,44 @@
 import React, { useState } from "react";
 
-function ChatBox({ onSend }) {
+function ChatBox({ onSend, disabled }) {
   const [input, setInput] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!input.trim()) return;
-    onSend(input);
+  const handleSubmit = () => {
+    const msg = input.trim();
+    if (!msg || disabled) return;
+    onSend(msg);
     setInput("");
   };
 
+  const onKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit} style={styles.form}>
+    <div className="composer">
       <input
         type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
         placeholder="Ask Gemini something..."
-        style={styles.input}
+        className="composer-input"
+        value={input}
+        rows={1}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={onKeyDown}
+        disabled={disabled}
       />
-      <button type="submit" style={styles.button}>Send</button>
-    </form>
+      <button
+        type="submit"
+        className="composer-btn"
+        onClick={handleSubmit}
+        disabled={disabled || !input.trim()}
+      >
+        Send
+      </button>
+    </div>
   );
 }
-
-const styles = {
-  form: { display: "flex", gap: "0.5rem", marginTop: "1rem" },
-  input: { flex: 1, padding: "0.5rem", fontSize: "1rem" },
-  button: { padding: "0.5rem 1rem", cursor: "pointer" },
-};
 
 export default ChatBox;
