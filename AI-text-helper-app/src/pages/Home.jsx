@@ -1,67 +1,88 @@
-import React, { useState } from "react";
-import { getAIResponse } from "../utils/api";
+// src/pages/Home.jsx
+import React, { useEffect, useRef, useState } from "react";
 import ChatBox from "../components/ChatBox";
+import ChatMessage from "../components/ChatMessage";
+import { getAIResponse } from "../utils/api";
+import "../styles/chat.css";
 
-function Home() {
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
+export default function Home() {
+  const [messages, setMessages] = useState(() => {
+    const saved = localStorage.getItem("gemini-chat");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [busy, setBusy] = useState(false);
+  const endRef = useRef(null);
 
-  const handleSend = async (userMessage) => {
+  useEffect(() => {
+    localStorage.setItem("gemini-chat", JSON.stringify(messages));
+    endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages]);
 
-    setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
-    setLoading(true);
+  const typeOut = (id, fullText, speed = 15) =>
+    new Promise((resolve) => {
+      let i = 0;
+      const interval = setInterval(() => {
+        i++;
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === id ? { ...m, text: fullText.slice(0, i) } : m
+          )
+        );
+        if (i >= fullText.length) {
+          clearInterval(interval);
+          setMessages((prev) =>
+            prev.map((m) => (m.id === id ? { ...m, typing: false } : m))
+          );
+          resolve();
+        }
+      }, speed);
+    });
 
+  const handleSend = async (userText) => {
+    const userMsg = {
+      id: crypto.randomUUID(),
+      sender: "user",
+      text: userText,
+      ts: Date.now(),
+    };
+    setMessages((prev) => [...prev, userMsg]);
 
-    const aiText = await getAIResponse(userMessage);
+    // Create an AI "typing" placeholder
+    const aiId = crypto.randomUUID();
+    setMessages((prev) => [
+      ...prev,
+      { id: aiId, sender: "ai", text: "", typing: true, ts: Date.now() },
+    ]);
 
-
-    setMessages((prev) => [...prev, { sender: "ai", text: aiText }]);
-    setLoading(false);
+    setBusy(true);
+    const full = await getAIResponse(userText);
+    await typeOut(aiId, full);
+    setBusy(false);
   };
 
   return (
-    <div style={styles.container}>
-      <h1>🤖 Gemini AI Chat</h1>
+    <div className="wrap">
+      <header className="header">
+        <div className="brand">
+          <span className="logo">⚡</span> Gemini Chat
+        </div>
+      </header>
 
-      <div style={styles.chatWindow}>
-        {messages.map((msg, idx) => (
-          <div
-            key={idx}
-            style={{
-              ...styles.message,
-              alignSelf: msg.sender === "user" ? "flex-end" : "flex-start",
-              background: msg.sender === "user" ? "#007bff" : "#e0e0e0",
-              color: msg.sender === "user" ? "white" : "black",
-            }}
-          >
-            {msg.text}
-          </div>
+      <main className="chat">
+        {messages.map((m) => (
+          <ChatMessage
+            key={m.id}
+            sender={m.sender}
+            text={m.text}
+            typing={m.typing}
+          />
         ))}
-        {loading && <p>⌛ Gemini is thinking...</p>}
-      </div>
+        <div ref={endRef} />
+      </main>
 
-      <ChatBox onSend={handleSend} />
+      <footer className="footer">
+        <ChatBox onSend={handleSend} disabled={busy} />
+      </footer>
     </div>
   );
 }
-
-const styles = {
-  container: { maxWidth: "600px", margin: "0 auto", padding: "2rem" },
-  chatWindow: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.5rem",
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    padding: "1rem",
-    minHeight: "300px",
-    overflowY: "auto",
-  },
-  message: {
-    padding: "0.5rem 1rem",
-    borderRadius: "12px",
-    maxWidth: "70%",
-  },
-};
-
-export default Home;
