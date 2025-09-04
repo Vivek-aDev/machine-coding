@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {
   Container,
-  Typography,
   Grid,
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
+  Typography,
+  Box,
 } from "@mui/material";
 import { motion } from "framer-motion";
 
@@ -21,45 +22,49 @@ export default function Home() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
+        justifyContent: "space-between",
         minHeight: "100vh",
         textAlign: "center",
+        py: 4,
       }}
     >
+      {/* Title with animation */}
       <motion.div
-        initial={{ opacity: 0, y: -40 }}
+        initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
         <Typography variant="h3" fontWeight="bold" gutterBottom>
           Badminton Game Plan Maker
         </Typography>
+        <Typography variant="subtitle1" color="text.secondary">
+          Create fair and balanced match plans for singles & doubles
+        </Typography>
       </motion.div>
 
+      {/* Card Grid */}
       <Grid
         container
-        spacing={8}
+        spacing={6}
         justifyContent="center"
-        sx={{ mt: 4 }}
+        sx={{ mt: 6 }}
         component={motion.div}
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
         {/* Singles */}
         <Grid item xs={12} sm={6}>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 200 }}
-          >
-            <Card sx={{ borderRadius: 3, boxShadow: 6 }}>
+          <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 250 }}>
+            <Card sx={{ borderRadius: 4, boxShadow: 6 }}>
               <CardActionArea component={Link} to="/setup/singles">
                 <CardMedia
                   component="img"
-                  height="320"
+                  height="340"
                   image={singles}
-                  alt="Singles Badminton"
+                  alt="Singles Match"
+                  sx={{ objectFit: "cover" }}
                 />
                 <CardContent>
                   <Typography variant="h5" fontWeight="600">
@@ -73,17 +78,15 @@ export default function Home() {
 
         {/* Doubles */}
         <Grid item xs={12} sm={6}>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 200 }}
-          >
-            <Card sx={{ borderRadius: 3, boxShadow: 6 }}>
+          <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 250 }}>
+            <Card sx={{ borderRadius: 4, boxShadow: 6 }}>
               <CardActionArea component={Link} to="/setup/doubles">
                 <CardMedia
                   component="img"
-                  height="320"
+                  height="340"
                   image={doubles}
-                  alt="Doubles Badminton"
+                  alt="Doubles Match"
+                  sx={{ objectFit: "cover" }}
                 />
                 <CardContent>
                   <Typography variant="h5" fontWeight="600">
@@ -95,6 +98,13 @@ export default function Home() {
           </motion.div>
         </Grid>
       </Grid>
+
+      {/* Footer */}
+      <Box sx={{ mt: 6 }}>
+        <Typography variant="body2" color="text.secondary">
+          Made with ❤️ by <strong>Vivekananda Sahu</strong>
+        </Typography>
+      </Box>
     </Container>
   );
 }
